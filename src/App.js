@@ -1,9 +1,11 @@
 import "./App.css";
-
+import Button from "@material-ui/core/Button";
 function App() {
   return (
     <div className="App">
-      <h1>hey</h1>
+      <Button variant="contained" color="secondary">
+        Secondary
+      </Button>
     </div>
   );
 }
