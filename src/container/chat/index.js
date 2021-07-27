@@ -3,7 +3,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles } from "@material-ui/core/styles";
 import NavBar from "../../components/navBar";
 import SideNav from "../../components/sideNav";
-
+import ChatHeader from "../../components/chatHeader";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -35,7 +35,7 @@ export default function Chat() {
         mobileOpen={mobileOpen}
       />
       <main className={classes.content}>
-        <h1>Chat</h1>
+        <ChatHeader />
       </main>
     </div>
   );

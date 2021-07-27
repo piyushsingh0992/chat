@@ -14,7 +14,7 @@ function App() {
   return (
     <div className="APP">
       <Routes>
-        <Route path="/" element={<Error />} />
+        <Route path="/" element={<Chat />} />
         {/* <Route path="/" element={<Home />} /> */}
         <Route path="/chat/:chatId" element={<Chat />} />
         <Route path="/contacts" element={<Contacts />} />

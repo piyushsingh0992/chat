@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ContactBar() {
+export default function ContactHeader() {
   const classes = useStyles();
   return (
     <div className={classes.root}>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ContactBar from "../../components/contactBar";
+import ContactBar from "../../components/contactHeader";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles } from "@material-ui/core/styles";
 import NavBar from "../../components/navBar";
