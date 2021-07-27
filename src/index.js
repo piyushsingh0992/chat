@@ -24,6 +24,17 @@ const theme = createTheme({
       elevation: 0,
     },
   },
+  overrides: {
+    MuiTooltip: {
+      tooltip: {
+        cursor: "pointer",
+        fontSize: "1em",
+        color: "white",
+        backgroundColor: "rgb(18, 140, 126)",
+        padding:"0.5rem"
+      },
+    },
+  },
 });
 
 ReactDOM.render(

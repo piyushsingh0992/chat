@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import ContactBar from "../../components/contactBar";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles } from "@material-ui/core/styles";
 import NavBar from "../../components/navBar";
 import SideNav from "../../components/sideNav";
+import Typography from "@material-ui/core/Typography";;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,7 +37,9 @@ export default function Contacts() {
         mobileOpen={mobileOpen}
       />
       <main className={classes.content}>
-        <h1>Contacts</h1>
+        <ContactBar/>
+      {/* <div></div>
+        <h1>Contacts</h1> */}
       </main>
     </div>
   );
