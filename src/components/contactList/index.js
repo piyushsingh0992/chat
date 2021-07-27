@@ -4,33 +4,42 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ListItemText from "@material-ui/core/ListItemText";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import Avatar from "@material-ui/core/Avatar";
 import FolderIcon from "@material-ui/icons/Folder";
-import DeleteIcon from '@material-ui/icons/Delete';
-import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from "@material-ui/icons/Delete";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import Tooltip from "@material-ui/core/Tooltip";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     maxHeight: "80vh",
     padding: 0,
-    paddingTop: "155px",
+    marginTop: "3.5rem",
+    [theme.breakpoints.down("xs")]: {
+      marginTop: "3.5rem",
+    },
   },
 
-  chatItem: {
-    backgroundColor: theme.palette.background.main,
-    borderBottom: `1px solid ${theme.palette.primary.main}`,
-    padding: theme.spacing(2),
-  },
   avatar: {
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.main,
+    height: "60px",
+    width: "60px",
+    marginRight: "1rem",
+  },
+  chatItem: {
+    backgroundColor: theme.palette.background.default,
+    borderBottom: `1px solid ${theme.palette.primary.main}`,
+    padding: theme.spacing(1,2),
+  },
+  delete: {
+    transform: "scale(1.2)",
   },
 }));
 
 function generate(element) {
-  return [
-    0, 1, 20, 1, 20, 1, 20, 1, 20, 1, 20, 1, 20, 1, 20, 1, 20, 1, 20, 1, 20, 1,
-    20, 1, 20, 1, 20, 1, 2,
-  ].map((value) =>
+  return [0,2,2,2,2,2,2,2,2,2,2,].map((value) =>
     React.cloneElement(element, {
       key: value,
     })
@@ -52,14 +61,16 @@ export default function InteractiveList() {
             </Avatar>
           </ListItemAvatar>
           <ListItemText
-            primary="Single-line item"
-            secondary={secondary ? "Secondary text" : null}
+            primary={<Typography variant="h6">All Contacts</Typography>}
+            secondary={<Typography variant="p">All Contacts</Typography>}
           />
-           <ListItemSecondaryAction>
-                    <IconButton edge="end" aria-label="delete">
-                      <DeleteIcon />
-                    </IconButton>
-                  </ListItemSecondaryAction>
+          <ListItemSecondaryAction>
+            <Tooltip title="Delete Contact" aria-label="add">
+              <IconButton edge="end" aria-label="delete">
+                <DeleteIcon className={classes.delete} />
+              </IconButton>
+            </Tooltip>
+          </ListItemSecondaryAction>
         </ListItem>
       )}
     </List>
