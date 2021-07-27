@@ -7,6 +7,7 @@ import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Search from "../searchChat";
+import Navigation from "../navigation";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -52,11 +53,7 @@ export default function User() {
               R
             </Avatar>
           }
-          action={
-            <IconButton aria-label="settings" className={classes.action}>
-              <MoreVertIcon />
-            </IconButton>
-          }
+          action={<Navigation />}
           titleTypographyProps={{ variant: "h6" }}
           title="Shrimp "
           className={classes.header}
