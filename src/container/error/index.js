@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Setting = () => {
+const Error = () => {
     return (
         <div>
-            <h1>setting</h1>
+            <h1>error</h1>
         </div>
     );
 };
 
-export default Setting;
+export default Error;
