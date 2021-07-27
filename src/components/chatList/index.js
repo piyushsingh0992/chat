@@ -7,18 +7,22 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Avatar from "@material-ui/core/Avatar";
 import FolderIcon from "@material-ui/icons/Folder";
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    maxWidth: 760,
+    maxHeight: "80vh",
+    padding: 0,
+    paddingTop: "155px",
   },
- 
-  chatItem:{
+
+  chatItem: {
     backgroundColor: theme.palette.background.main,
-    borderBottom:`1px solid ${theme.palette.primary.main}`,
-  padding:theme.spacing(2),
-  }
+    borderBottom: `1px solid ${theme.palette.primary.main}`,
+    padding: theme.spacing(2),
+  },
+  avatar: {
+    backgroundColor: theme.palette.secondary.main,
+  },
 }));
 
 function generate(element) {
@@ -38,22 +42,20 @@ export default function InteractiveList() {
   const [secondary, setSecondary] = React.useState(false);
 
   return (
-    <div className={classes.demo}>
-      <List dense={dense}>
-        {generate(
-          <ListItem className={classes.chatItem}>
-            <ListItemAvatar>
-              <Avatar>
-                <FolderIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText
-              primary="Single-line item"
-              secondary={secondary ? "Secondary text" : null}
-            />
-          </ListItem>
-        )}
-      </List>
-    </div>
+    <List dense={dense} className={classes.root}>
+      {generate(
+        <ListItem className={classes.chatItem}>
+          <ListItemAvatar>
+            <Avatar className={classes.avatar}>
+              <FolderIcon />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText
+            primary="Single-line item"
+            secondary={secondary ? "Secondary text" : null}
+          />
+        </ListItem>
+      )}
+    </List>
   );
 }

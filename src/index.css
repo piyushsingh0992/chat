@@ -2,3 +2,24 @@ body,html{
   padding: 0;
   margin:0;
 }
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: hidden; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background:rgb(7, 94, 84); 
+    border-radius:10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background:rgb(18, 140, 126); 
+    border-radius:10px;
+}
