@@ -3,11 +3,14 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles } from "@material-ui/core/styles";
 import NavBar from "../../components/navBar";
 import SideNav from "../../components/sideNav";
+import Typography from "@material-ui/core/Typography";
+import errorIcon from "../../assets/images/error.png";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     minHeight: "100vh",
+    color:theme.palette.primary.main
   },
 
   content: {
@@ -16,6 +19,14 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("xs")]: {
       marginTop: "3.5rem",
     },
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "column",
+  },
+  icon: {
+    height: "10rem",
+    margin: "2rem 0",
   },
 }));
 export default function Error() {
@@ -35,7 +46,10 @@ export default function Error() {
         mobileOpen={mobileOpen}
       />
       <main className={classes.content}>
-        <h1>Error</h1>
+        <img src={errorIcon} className={classes.icon} />
+        <Typography variant="h2" noWrap>
+          Page not Found
+        </Typography>
       </main>
     </div>
   );
