@@ -1,5 +1,5 @@
+import React, { useState } from "react";
 import "./App.css";
-
 import Chat from "./container/chat";
 import Contacts from "./container/contacts";
 import Error from "./container/error";
@@ -9,9 +9,10 @@ import Setting from "./container/setting";
 import VideoCall from "./container/videoCall";
 import VoiceCall from "./container/voiceCall";
 import { Routes, Route, useNavigate } from "react-router-dom";
+
 function App() {
   return (
-    <div className="App">
+    <div className="APP">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/chat/:chatId" element={<Chat />} />
