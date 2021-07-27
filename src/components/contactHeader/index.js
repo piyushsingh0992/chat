@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   icon: {
-    height: "2rem",
     color: theme.palette.common.white,
     transform: "scale(1.5)",
 

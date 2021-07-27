@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import NavBar from "../../components/navBar";
 import SideNav from "../../components/sideNav";
 import ChatHeader from "../../components/chatHeader";
+import Keyboard from "../../components/keyboard";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -36,6 +37,7 @@ export default function Chat() {
       />
       <main className={classes.content}>
         <ChatHeader />
+        <Keyboard />
       </main>
     </div>
   );
