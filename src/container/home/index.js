@@ -1,8 +1,11 @@
+
 import React, { useState } from "react";
+import icon from "../../assets/logo/chat.png";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles } from "@material-ui/core/styles";
 import NavBar from "../../components/navBar";
-import SideNav from "../../components/sideNav";
+import SideNav from "../../components/sideNav"
+import Typography from "@material-ui/core/Typography";;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,7 +19,17 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("xs")]: {
       marginTop: "3.5rem",
     },
+
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "column",
   },
+  icon: {
+    height: "10rem",
+    margin:"5rem 0"
+  },
+  
 }));
 export default function Home() {
   const classes = useStyles();
@@ -35,7 +48,10 @@ export default function Home() {
         mobileOpen={mobileOpen}
       />
       <main className={classes.content}>
-        <h1>Home</h1>
+        <Typography variant="h3" noWrap >
+          Welcome To chat
+        </Typography>
+        <img src={icon} className={classes.icon} />
       </main>
     </div>
   );
