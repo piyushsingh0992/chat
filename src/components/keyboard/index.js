@@ -13,11 +13,14 @@ const useStyles = makeStyles((theme) => ({
     width: "75%",
     background: "transparent",
     padding: "0.5rem",
+
     [theme.breakpoints.down("xs")]: {
       width: "100%",
     },
   },
   inputRoot: {
+    border: `0.5px solid ${theme.palette.primary.main}`,
+ 
     color: "inherit",
     background: "white",
     width: "100%",
@@ -39,6 +42,8 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.background.main,
     borderBottomLeftRadius: "10px",
     borderBottomRightRadius: "10px",
+    border: `0.5px solid ${theme.palette.primary.main}`,
+    borderTop:0,
   },
 
   icon: {

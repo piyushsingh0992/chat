@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     borderBottom: `1px solid ${theme.palette.primary.main}`,
     position: "fixed",
     top: 0,
-    zIndex: 9999999,
+    zIndex: 2,
     width: "75%",
     background: theme.palette.secondary.main,
     [theme.breakpoints.down("xs")]: {

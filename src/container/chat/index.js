@@ -5,6 +5,7 @@ import NavBar from "../../components/navBar";
 import SideNav from "../../components/sideNav";
 import ChatHeader from "../../components/chatHeader";
 import Keyboard from "../../components/keyboard";
+import ChatBox from "../../components/chatBox"
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -37,6 +38,7 @@ export default function Chat() {
       />
       <main className={classes.content}>
         <ChatHeader />
+        <ChatBox />
         <Keyboard />
       </main>
     </div>
