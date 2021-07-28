@@ -17,6 +17,7 @@ const theme = createTheme({
     background: {
       default: "rgb(236, 229, 221)",
       main: "rgb(220, 248, 198)",
+      secondary:'rgb(54, 69, 79)',
     },
   },
   props: {

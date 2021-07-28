@@ -3,6 +3,10 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles } from "@material-ui/core/styles";
 import NavBar from "../../components/navBar";
 import SideNav from "../../components/sideNav";
+import ChatHeader from "../../components/chatHeader";
+import CallControls from "../../components/callControls";
+import Avatar from "@material-ui/core/Avatar";
+import Video from "../../components/video";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,6 +19,16 @@ const useStyles = makeStyles((theme) => ({
     margin: 0,
     [theme.breakpoints.down("xs")]: {
       marginTop: "3.5rem",
+    },
+  },
+  display: {
+    position: "fixed",
+    width: "75%",
+    top: "4.8rem",
+    padding: "0 0.2rem ",
+    [theme.breakpoints.down("xs")]: {
+      width: "100%",
+      top: "8.4rem",
     },
   },
 }));
@@ -35,7 +49,12 @@ export default function VideoCall() {
         mobileOpen={mobileOpen}
       />
       <main className={classes.content}>
-        <h1>VideoCall</h1>
+        <ChatHeader />
+        <div className={classes.display}>
+          <Video />
+          <Video />
+        </div>
+        <CallControls />
       </main>
     </div>
   );

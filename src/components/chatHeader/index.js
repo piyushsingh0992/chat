@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import DuoIcon from "@material-ui/icons/Duo";
 import CallIcon from "@material-ui/icons/Call";
+import AddBoxIcon from "@material-ui/icons/AddBox";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,6 +68,12 @@ export default function ChatHeader() {
         <Tooltip title="VideoCall" aria-label="add">
           <IconButton>
             <DuoIcon className={classes.icon} />
+          </IconButton>
+        </Tooltip>
+
+        <Tooltip title="VideoCall" aria-label="add">
+          <IconButton>
+            <AddBoxIcon className={classes.icon} />
           </IconButton>
         </Tooltip>
       </div>
