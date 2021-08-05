@@ -8,18 +8,18 @@ import Login from "./container/login";
 import Setting from "./container/setting";
 import VideoCall from "./container/videoCall";
 import VoiceCall from "./container/voiceCall";
+import CallModal from "./components/callModal";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
 function App() {
   return (
     <div className="APP">
+      <CallModal />
       <Routes>
-      <Route path="/" element={<VideoCall />} />
         <Route path="/" element={<Home />} />
         <Route path="/chat/:chatId" element={<Chat />} />
         <Route path="/contacts" element={<Contacts />} />
         <Route path="/login" element={<Login />} />
-
         <Route path="/setting" element={<Setting />} />
         <Route path="/videoCall/:videoCallId" element={<VideoCall />} />
         <Route path="/voiceCall/:voiceCallId" element={<VoiceCall />} />
