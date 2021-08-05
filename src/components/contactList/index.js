@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     padding: 0,
     marginTop: "3.5rem",
     [theme.breakpoints.down("xs")]: {
-      marginTop: "3.5rem",
+      marginTop: "3rem",
     },
   },
 

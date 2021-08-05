@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import NavBar from "../../components/navBar";
 import SideNav from "../../components/sideNav";
 import ContactList from "../../components/contactList";
+import ContactSearch from "../../components/contactSearch";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,9 +39,9 @@ export default function Contacts() {
       />
       <main className={classes.content}>
         <ContactBar />
+        <ContactSearch />
         <ContactList />
-        {/* <div></div>
-        <h1>Contacts</h1> */}
+
       </main>
     </div>
   );

@@ -5,22 +5,24 @@ import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    padding: "0 1rem",
+    padding: "0.5rem 3rem 0 2rem",
     borderBottom: `1px solid ${theme.palette.primary.main}`,
     position: "fixed",
     top: 0,
-    zIndex: 9999999,
+    zIndex: 1,
     width: "75%",
     background: theme.palette.secondary.main,
     [theme.breakpoints.down("xs")]: {
-      top: "3.5rem",
+      top: "3rem",
       width: "100%",
-      background: theme.palette.background.default,
+      background: "white",
+      padding: "0.5rem 1rem 0 1rem",
     },
   },
   icon: {
