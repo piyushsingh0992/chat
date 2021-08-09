@@ -3,7 +3,7 @@ import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import ChatList from "../chatList";
-import User from "../user";
+import UserHeader from "../userHeader";
 const drawerWidth = 340;
 
 const useStyles = makeStyles((theme) => ({
@@ -40,7 +40,7 @@ export default function SideNav({ handleDrawerToggle, mobileOpen }) {
             keepMounted: true, // Better open performance on mobile.
           }}
         >
-          <User />
+          <UserHeader />
           <ChatList />
         </Drawer>
       </Hidden>
@@ -52,7 +52,7 @@ export default function SideNav({ handleDrawerToggle, mobileOpen }) {
           variant="permanent"
           open
         >
-          <User />
+          <UserHeader />
 
           <ChatList />
         </Drawer>

@@ -1,16 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-
 import Container from "@material-ui/core/Container";
 import logo from "../../assets/logo/chat.png";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
 import { useStyles } from "./style.js";
-
+import { useInputChange } from "../../customHooks/inputChange.js";
+import { useSelector, useDispatch } from "react-redux";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { signUp } from "../../container/login/authSlice";
+import { toast } from "react-toastify";
+import { successSignUp } from "./common.js";
+import { check } from "../../utils/common";
 export default function SignUp({
   currentUserSetter,
   signUpDetails,
@@ -18,16 +20,42 @@ export default function SignUp({
   signInDetailsSetter,
 }) {
   const classes = useStyles();
+  const [loader, loaderSetter] = useState(false);
+  const handleChange = useInputChange(signUpDetailsSetter);
+  const dispatch = useDispatch();
 
-  const handleChange = (event) => {
-    const name = event.target.name;
-    signUpDetailsSetter((state) => {
-      return {
-        ...state,
-        [name]: event.target.value,
-      };
-    });
+  let auth = useSelector((state) => state.auth);
+
+  const successSignUpProps = {
+    signUpDetails,
+    signUpDetailsSetter,
+    signInDetailsSetter,
+    currentUserSetter,
   };
+  useEffect(() => {
+    if (loader) {
+      if (auth.status === "fullfilled") {
+        successSignUp(successSignUpProps);
+        toast.success(auth.message);
+        loaderSetter(false);
+      } else if (auth.status === "rejected") {
+        toast.error(auth.message);
+        
+        loaderSetter(false);
+      }
+    }
+  }, [auth.status]);
+
+  function submitHandler() {
+    loaderSetter(true);
+    if (check(signUpDetails)) {
+      
+      toast.error("Please Fill in all the details");
+      loaderSetter(false);
+      return;
+    }
+    dispatch(signUp(signUpDetails));
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -39,6 +67,7 @@ export default function SignUp({
 
         <form className={classes.form} noValidate>
           <TextField
+            required={true}
             variant="outlined"
             margin="normal"
             required
@@ -50,41 +79,8 @@ export default function SignUp({
             autoFocus
             onChange={handleChange}
           />
-
           <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="userId"
-            label="userId"
-            value={signUpDetails.userId}
-            name="userId"
-            autoFocus
-            onChange={handleChange}
-          />
-          <FormControl
-            required
-            variant="outlined"
-            className={classes.formControl}
-          >
-            <InputLabel margin="normal">Sex</InputLabel>
-            <Select
-              native
-              onChange={handleChange}
-              label="sex"
-              value={signUpDetails.sex}
-              inputProps={{
-                name: "sex",
-              }}
-            >
-              <option aria-label="None" value="" />
-              <option value={"Male"}>Male</option>
-              <option value={"Female"}>Female</option>
-              <option value={"Others"}>Others</option>
-            </Select>
-          </FormControl>
-          <TextField
+            required={true}
             variant="outlined"
             margin="normal"
             required
@@ -97,6 +93,7 @@ export default function SignUp({
             onChange={handleChange}
           />
           <TextField
+            required={true}
             variant="outlined"
             margin="normal"
             required
@@ -114,24 +111,23 @@ export default function SignUp({
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={() => {
-              //   submitHandler();
-            }}
+            onClick={submitHandler}
+            disabled={loader}
           >
-            Sign Up
+            {loader ? <CircularProgress size={28} /> : "Sign Up"}
           </Button>
           <Grid container alignItems="center" justify="center">
             <Grid
               item
               xs={8}
               onClick={() => {
+                window.location.hash = "signIn";
                 currentUserSetter((value) => !value);
                 signUpDetailsSetter({
                   userName: "",
                   password: "",
                   email: "",
-                  pronouns: "",
-                  sex: "",
+                 
                 });
               }}
             >

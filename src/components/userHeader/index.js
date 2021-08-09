@@ -4,9 +4,10 @@ import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import Avatar from "@material-ui/core/Avatar";
-
+import { useSelector } from "react-redux";
 import Search from "../searchChat";
 import Navigation from "../navigation";
+import Typography from "@material-ui/core/Typography";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -41,19 +42,29 @@ const useStyles = makeStyles((theme) => ({
 
 export default function User() {
   const classes = useStyles();
-
+  let auth = useSelector((state) => state.auth);
   return (
     <div>
       <Card className={classes.root}>
         <CardHeader
           avatar={
-            <Avatar aria-label="recipe" className={classes.avatar}>
-              R
-            </Avatar>
+            auth.userImage ? (
+              <Avatar
+                aria-label="recipe"
+                className={classes.avatar}
+                src={auth.userImage}
+              />
+            ) : (
+              <Avatar aria-label="recipe" className={classes.avatar}>
+                <Typography variant="h4">
+                  {auth.userName.slice(0, 1)}
+                </Typography>
+              </Avatar>
+            )
           }
           action={<Navigation />}
           titleTypographyProps={{ variant: "h6" }}
-          title="Shrimp "
+          title={auth.userName}
           className={classes.header}
         />
 

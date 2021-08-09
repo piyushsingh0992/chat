@@ -8,6 +8,8 @@ import PermContactCalendarIcon from "@material-ui/icons/PermContactCalendar";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import SettingsIcon from "@material-ui/icons/Settings";
 import Typography from "@material-ui/core/Typography";
+import ExitToAppRoundedIcon from "@material-ui/icons/ExitToAppRounded";
+import  useLogout  from "../../customHooks/logout";
 const useStyles = makeStyles((theme) => ({
   action: {
     marginTop: "1rem",
@@ -32,6 +34,13 @@ export default function Navigation() {
   };
 
   const classes = useStyles();
+
+  const logout = useLogout();
+
+  function logoutHandler() {
+    setAnchorEl(null);
+    logout();
+  }
 
   return (
     <div>
@@ -66,6 +75,13 @@ export default function Navigation() {
           <SettingsIcon className={classes.icon} />
           <Typography variant="p" className={classes.text}>
             Setting
+          </Typography>
+        </MenuItem>
+
+        <MenuItem onClick={logoutHandler}>
+          <ExitToAppRoundedIcon className={classes.icon} />
+          <Typography variant="p" className={classes.text}>
+            Logout
           </Typography>
         </MenuItem>
       </Menu>

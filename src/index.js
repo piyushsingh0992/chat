@@ -5,6 +5,8 @@ import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import { store } from "./app/store";
+import { Provider } from "react-redux";
 
 const theme = createTheme({
   palette: {
@@ -17,7 +19,7 @@ const theme = createTheme({
     background: {
       default: "rgb(236, 229, 221)",
       main: "rgb(220, 248, 198)",
-      secondary:'rgb(54, 69, 79)',
+      secondary: "rgb(54, 69, 79)",
     },
   },
   props: {
@@ -32,7 +34,7 @@ const theme = createTheme({
         fontSize: "1em",
         color: "white",
         backgroundColor: "rgb(18, 140, 126)",
-        padding:"0.5rem"
+        padding: "0.5rem",
       },
     },
   },
@@ -40,12 +42,14 @@ const theme = createTheme({
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Router>
-        <App />
-      </Router>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Router>
+          <App />
+        </Router>
+      </ThemeProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );
