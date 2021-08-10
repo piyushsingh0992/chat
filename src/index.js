@@ -31,7 +31,7 @@ const theme = createTheme({
     MuiTooltip: {
       tooltip: {
         cursor: "pointer",
-        fontSize: "1em",
+        fontSize: "0.8em",
         color: "white",
         backgroundColor: "rgb(18, 140, 126)",
         padding: "0.5rem",

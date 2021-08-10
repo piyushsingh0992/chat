@@ -19,8 +19,8 @@ import useLoadingChatandContact from "./customHooks/loadingChatandContact";
 function App() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.token);
+  const loadChatandContact = useLoadingChatandContact();
 
-  const loadingChatandContact = useLoadingChatandContact();
   useEffect(() => {
     let userDetails = JSON.parse(localStorage.getItem("chatUserDetails"));
     if (userDetails) {
@@ -29,7 +29,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    loadingChatandContact(token);
+    loadChatandContact(token);
   }, [token]);
 
   return (
@@ -37,9 +37,10 @@ function App() {
       <CallModal />
       <ToastContainer />
       <Routes>
-        <PrivateRoute path="/" element={<Home />} />
+        <PrivateRoute path="/" element={<Contacts />} />
+        {/* <PrivateRoute path="/" element={<Home />} />
         <PrivateRoute path="/chat/:chatId" element={<Chat />} />
-        <PrivateRoute path="/contacts" element={<Contacts />} />
+        <PrivateRoute path="/contacts" element={<Contacts />} /> */}
         <Route path="/login" element={<Login />} />
         <PrivateRoute path="/setting" element={<Setting />} />
         <PrivateRoute path="/videoCall/:videoCallId" element={<VideoCall />} />
