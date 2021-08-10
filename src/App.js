@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import Chat from "./container/chat";
-import Contacts from "./container/contacts";
+import Contacts from "./container/contact";
 import Error from "./container/error";
 import Home from "./container/home";
 import Login from "./container/login";
@@ -9,26 +9,29 @@ import Setting from "./container/setting";
 import VideoCall from "./container/videoCall";
 import VoiceCall from "./container/voiceCall";
 import CallModal from "./components/callModal";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import PrivateRoute from "./components/privateRoute";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { setupAuthHeader, setupAuthExceptionHandler } from "./utils/common";
 import { signInfromLocalStorage } from "./container/login/authSlice";
-import { useDispatch } from "react-redux";
-import useLogout from "./customHooks/logout";
+import { useSelector, useDispatch } from "react-redux";
+import useLoadingChatandContact from "./customHooks/loadingChatandContact";
 function App() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const logout = useLogout();
+  const token = useSelector((state) => state.auth.token);
+
+  const loadingChatandContact = useLoadingChatandContact();
   useEffect(() => {
     let userDetails = JSON.parse(localStorage.getItem("chatUserDetails"));
     if (userDetails) {
-      setupAuthHeader(userDetails.token);
       dispatch(signInfromLocalStorage(userDetails));
-      setupAuthExceptionHandler(logout, navigate);
     }
   }, []);
+
+  useEffect(() => {
+    loadingChatandContact(token);
+  }, [token]);
+
   return (
     <div className="APP">
       <CallModal />

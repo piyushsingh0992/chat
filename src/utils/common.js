@@ -24,7 +24,7 @@ export function check(details) {
 
 export const setupAuthHeader = (token) => {
   if (token) {
-    return (axios.defaults.headers.common["Authorization"] = token);
+    return (axios.defaults.headers.common["Authorization"] = `bearer ${token}`);
   }
   delete axios.defaults.headers.common["Authorization"];
 };
@@ -37,7 +37,7 @@ export const setupAuthExceptionHandler = (logout, navigate) => {
     (error) => {
       if (error?.response?.status === UNAUTHORIZED) {
         logout();
-        navigate("login");
+        navigate("/login");
       }
 
       if (error?.response?.status === PAGE_NOT_FOUND) {

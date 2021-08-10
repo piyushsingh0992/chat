@@ -34,11 +34,9 @@ export default function SignIn({
     }
   }, [auth.status]);
 
-
   function submitHandler() {
     loaderSetter(true);
     if (check(signInDetails)) {
-      
       toast.error("Please Fill in all the details");
       loaderSetter(false);
       return;
@@ -90,9 +88,7 @@ export default function SignIn({
             onClick={submitHandler}
             disabled={loader}
           >
-
-{loader ? <CircularProgress size={28} /> : " Sign In"}
-           
+            {loader ? <CircularProgress size={28} /> : " Sign In"}
           </Button>
           <Grid container alignItems="center" justify="center">
             <Grid

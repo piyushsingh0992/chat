@@ -1,5 +1,4 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useState, useEffect } from "react";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
@@ -11,67 +10,54 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import Tooltip from "@material-ui/core/Tooltip";
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    maxHeight: "80vh",
-    padding: 0,
-    marginTop: "3.5rem",
-    [theme.breakpoints.down("xs")]: {
-      marginTop: "3rem",
-    },
-  },
-
-  avatar: {
-    backgroundColor: theme.palette.primary.main,
-    height: "60px",
-    width: "60px",
-    marginRight: "1rem",
-  },
-  chatItem: {
-    backgroundColor: theme.palette.background.default,
-    borderBottom: `1px solid ${theme.palette.primary.main}`,
-    padding: theme.spacing(1,2),
-  },
-  delete: {
-    transform: "scale(1.2)",
-  },
-}));
-
-function generate(element) {
-  return [0,2,2,2,2,2,2,2,2,2,2,].map((value) =>
-    React.cloneElement(element, {
-      key: value,
-    })
-  );
-}
+import { useSelector } from "react-redux";
+import { useStyles } from "./style.js";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { toast } from "react-toastify";
 
 export default function InteractiveList() {
   const classes = useStyles();
-  const [dense, setDense] = React.useState(false);
-  const [secondary, setSecondary] = React.useState(false);
+  const [dense, setDense] = useState(false);
+  const [loader, loaderSetter] = useState(true);
+  const [contactArray, contactArraySetter] = useState(null);
+  const contact = useSelector((state) => state.contact);
+
+  useEffect(() => {
+    if (contact.status === "fullfilled") {
+      contactArraySetter(contact.chats);
+      loaderSetter(false);
+    } else if (contact.status === "rejected") {
+      toast.error(contact.message);
+      contactArraySetter([]);
+      loaderSetter(false);
+    }
+  }, [contact]);
 
   return (
     <List dense={dense} className={classes.root}>
-      {generate(
-        <ListItem className={classes.chatItem}>
-          <ListItemAvatar>
-            <Avatar className={classes.avatar}>
-              <FolderIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText
-            primary={<Typography variant="h6">All Contacts</Typography>}
-            secondary={<Typography variant="p">All Contacts</Typography>}
-          />
-          <ListItemSecondaryAction>
-            <Tooltip title="Delete Contact" aria-label="add">
-              <IconButton edge="end" aria-label="delete">
-                <DeleteIcon className={classes.delete} />
-              </IconButton>
-            </Tooltip>
-          </ListItemSecondaryAction>
-        </ListItem>
+      {loader ? (
+        <CircularProgress size={28} />
+      ) : (
+        contactArray.map((item) => (
+          <ListItem className={classes.chatItem}>
+            <ListItemAvatar>
+              <Avatar className={classes.avatar}>
+                <FolderIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText
+              primary={<Typography variant="h6">All Contacts</Typography>}
+              secondary={<Typography variant="p">All Contacts</Typography>}
+            />
+            <ListItemSecondaryAction>
+              <Tooltip title="Delete Contact" aria-label="add">
+                <IconButton edge="end" aria-label="delete">
+                  <DeleteIcon className={classes.delete} />
+                </IconButton>
+              </Tooltip>
+            </ListItemSecondaryAction>
+          </ListItem>
+        ))
       )}
     </List>
   );

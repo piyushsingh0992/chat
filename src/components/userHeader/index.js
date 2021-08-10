@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import Search from "../searchChat";
 import Navigation from "../navigation";
 import Typography from "@material-ui/core/Typography";
+import CircularProgress from "@material-ui/core/CircularProgress";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -18,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     position: "fixed",
     top: 0,
     zIndex: 1000,
-    maxWidth: "330px",
+    maxWidth: "339px",
     padding: "10px 0",
   },
 
@@ -43,35 +44,33 @@ const useStyles = makeStyles((theme) => ({
 export default function User() {
   const classes = useStyles();
   let auth = useSelector((state) => state.auth);
-  return (
-    <div>
-      <Card className={classes.root}>
-        <CardHeader
-          avatar={
-            auth.userImage ? (
-              <Avatar
-                aria-label="recipe"
-                className={classes.avatar}
-                src={auth.userImage}
-              />
-            ) : (
-              <Avatar aria-label="recipe" className={classes.avatar}>
-                <Typography variant="h4">
-                  {auth.userName.slice(0, 1)}
-                </Typography>
-              </Avatar>
-            )
-          }
-          action={<Navigation />}
-          titleTypographyProps={{ variant: "h6" }}
-          title={auth.userName}
-          className={classes.header}
-        />
+  return auth.status === "fullfilled" ? (
+    <Card className={classes.root}>
+      <CardHeader
+        avatar={
+          auth.userImage ? (
+            <Avatar
+              aria-label="recipe"
+              className={classes.avatar}
+              src={auth.userImage}
+            />
+          ) : (
+            <Avatar aria-label="recipe" className={classes.avatar}>
+              <Typography variant="h4">{auth.userName.slice(0, 1)}</Typography>
+            </Avatar>
+          )
+        }
+        action={<Navigation />}
+        titleTypographyProps={{ variant: "h6" }}
+        title={auth.userName}
+        className={classes.header}
+      />
 
-        <CardContent className={classes.content}>
-          <Search />
-        </CardContent>
-      </Card>
-    </div>
+      <CardContent className={classes.content}>
+        <Search />
+      </CardContent>
+    </Card>
+  ) : (
+    <CircularProgress />
   );
 }

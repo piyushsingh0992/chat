@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   drawerPaper: {
+    backgroundColor: theme.palette.background.main,
     width: drawerWidth,
     display: "flex",
     flexDirection: "columnn",

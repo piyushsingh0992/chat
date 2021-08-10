@@ -14,7 +14,6 @@ export const signUp = createAsyncThunk(
   }
 );
 
-
 export const signIn = createAsyncThunk(
   "auth/signIn",
   async (signInDetails, { fulfillWithValue, rejectWithValue }) => {
@@ -49,7 +48,6 @@ const authSlice = new createSlice({
         userImage: null,
       };
     },
-
 
     signInfromLocalStorage: (state, action) => {
       state.status = "fullfilled";
@@ -100,6 +98,6 @@ const authSlice = new createSlice({
   },
 });
 
-export const { resetauthSlice,signInfromLocalStorage } = authSlice.actions;
+export const { resetauthSlice, signInfromLocalStorage } = authSlice.actions;
 
 export default authSlice.reducer;

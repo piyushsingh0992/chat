@@ -1,0 +1,54 @@
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { apiCall } from "../../apiCall";
+
+export const getAllContacts = createAsyncThunk(
+  "contact/getAllContacts",
+  async (dummy, { fulfillWithValue, rejectWithValue }) => {
+    let response = await apiCall("GET", "contact");
+
+    if (response.success) {
+      return fulfillWithValue(response);
+    } else {
+      return rejectWithValue(response);
+    }
+  }
+);
+
+const contactSlice = new createSlice({
+  name: "contact",
+  initialState: {
+    status: "idle",
+    message: null,
+    contacts: null,
+    currentcontact: null,
+  },
+  reducers: {
+    resetContactsSlice: () => {
+      return {
+        status: "idle",
+        message: null,
+        contacts: null,
+        currentContact: null,
+      };
+    },
+  },
+  extraReducers: {
+    [getAllContacts.pending]: (state) => {
+      state.status = "loading";
+    },
+    [getAllContacts.fulfilled]: (state, action) => {
+      
+      state.status = "fullfilled";
+      state.message = action.payload.message;
+      state.chats = action.payload.data.chats;
+    },
+    [getAllContacts.rejected]: (state, action) => {
+      state.status = "rejected";
+      state.message = action.payload.message;
+    },
+  },
+});
+
+export const { resetContactsSlice } = contactSlice.actions;
+
+export default contactSlice.reducer;
