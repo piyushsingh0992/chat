@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -44,25 +44,41 @@ const useStyles = makeStyles((theme) => ({
 export default function User() {
   const classes = useStyles();
   let auth = useSelector((state) => state.auth);
-  return auth.status === "fullfilled" ? (
+  const [loader, loaderSetter] = useState(true);
+  const [userDetails, userDetailsSetter] = useState(null);
+
+  useEffect(() => {
+    if (auth.status === "fullfilled") {
+      loaderSetter(false);
+      userDetailsSetter(auth);
+    } else if (auth.status === "rejected") {
+      loaderSetter(false);
+    }
+  }, [auth]);
+
+  return loader ? (
+    <CircularProgress />
+  ) : (
     <Card className={classes.root}>
       <CardHeader
         avatar={
-          auth.userImage ? (
+          userDetails.userImage ? (
             <Avatar
               aria-label="recipe"
               className={classes.avatar}
-              src={auth.userImage}
+              src={userDetails.userImage}
             />
           ) : (
             <Avatar aria-label="recipe" className={classes.avatar}>
-              <Typography variant="h4">{auth.userName.slice(0, 1)}</Typography>
+              <Typography variant="h4">
+                {userDetails.userName.slice(0, 1)}
+              </Typography>
             </Avatar>
           )
         }
         action={<Navigation />}
         titleTypographyProps={{ variant: "h6" }}
-        title={auth.userName}
+        title={userDetails.userName}
         className={classes.header}
       />
 
@@ -70,7 +86,5 @@ export default function User() {
         <Search />
       </CardContent>
     </Card>
-  ) : (
-    <CircularProgress />
   );
 }

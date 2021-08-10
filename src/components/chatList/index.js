@@ -9,7 +9,6 @@ import ChatInfo from "../chatInfo";
 export default function ChatList() {
   const classes = useStyles();
   const [dense, setDense] = useState(false);
-  const [secondary, setSecondary] = useState(false);
   const chat = useSelector((state) => state.chat);
 
   const [loader, loaderSetter] = useState(true);

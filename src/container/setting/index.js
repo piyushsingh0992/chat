@@ -1,18 +1,12 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import NavBar from "../../components/navBar";
 import SideNav from "../../components/sideNav";
-import Avatar from "@material-ui/core/Avatar";
-import Badge from "@material-ui/core/Badge";
-import EditIcon from "@material-ui/icons/Edit";
-import Tooltip from "@material-ui/core/Tooltip";
-import IconButton from "@material-ui/core/IconButton";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import ThemeToggle from "../../components/themeToggle";
-import { useSelector, useDispatch } from "react-redux";
-import Typography from "@material-ui/core/Typography";
+import { useSelector } from "react-redux";
+import EditAvatar from "../../components/editAvatar";
+import EditUserDetails from "../../components/editUserDetails";
+import { toast } from "react-toastify";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -32,17 +26,6 @@ const useStyles = makeStyles((theme) => ({
       marginTop: "3.5rem",
     },
   },
-  avatar: {
-    background: theme.palette.primary.main,
-    height: "20rem",
-    width: "20rem",
-  },
-  icon: {
-    background: "white",
-    "&:hover": {
-      background: "white",
-    },
-  },
 }));
 export default function Setting() {
   const classes = useStyles();
@@ -55,7 +38,24 @@ export default function Setting() {
     userName: auth.userName,
     userImage: auth.userImage,
   });
-  debugger;
+
+  useEffect(() => {
+    if (auth.status === "fullfilled") {
+      userDetailsSetter({
+        email: auth.email,
+        userName: auth.userName,
+        userImage: auth.userImage,
+      });
+      toast.success(auth.message);
+    } else if (auth.status === "rejected") {
+      userDetailsSetter({
+        email: auth.email,
+        userName: auth.userName,
+        userImage: auth.userImage,
+      });
+      toast.error(auth.message);
+    }
+  }, [auth]);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -69,61 +69,14 @@ export default function Setting() {
       />
       <main className={classes.content}>
         <ThemeToggle />
-        <Badge
-          badgeContent={
-            <Tooltip title="Edit" aria-label="add">
-              <IconButton color="secondary" className={classes.icon}>
-                <EditIcon />
-              </IconButton>
-            </Tooltip>
-          }
-          overlap="circular"
-        >
-          {userDetails.userImage ? (
-            <Avatar
-              aria-label="recipe"
-              className={classes.avatar}
-              src={userDetails.userImage}
-            />
-          ) : (
-            <Avatar aria-label="recipe" className={classes.avatar}>
-              <Typography variant="h1">
-                {userDetails.userName.slice(0, 1)}
-              </Typography>
-            </Avatar>
-          )}
-        </Badge>
-
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            id="userName"
-            label="UserName"
-            name="userName"
-            autoFocus
-            value={userDetails.userName}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            name="email"
-            label="Email"
-            id="email"
-            value={userDetails.email}
-          />
-
-          <Button
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Save
-          </Button>
-        </form>
+        <EditAvatar
+          userDetails={userDetails}
+          userDetailsSetter={userDetailsSetter}
+        />
+        <EditUserDetails
+          userDetails={userDetails}
+          userDetailsSetter={userDetailsSetter}
+        />
       </main>
     </div>
   );

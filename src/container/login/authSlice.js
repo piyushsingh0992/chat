@@ -27,6 +27,19 @@ export const signIn = createAsyncThunk(
   }
 );
 
+export const updateUserDetails = createAsyncThunk(
+  "auth/updateUserDetails",
+  async (updateObject, { fulfillWithValue, rejectWithValue }) => {
+    let response = await apiCall("POST", "user/update", updateObject);
+
+    if (response.success) {
+      return fulfillWithValue(response);
+    } else {
+      return rejectWithValue(response);
+    }
+  }
+);
+
 const authSlice = new createSlice({
   name: "auth",
   initialState: {
@@ -96,6 +109,36 @@ const authSlice = new createSlice({
       );
     },
     [signIn.rejected]: (state, action) => {
+      state.status = "rejected";
+      state.message = action.payload.message;
+    },
+
+    [updateUserDetails.pending]: (state) => {
+      state.status = "loading";
+    },
+    [updateUserDetails.fulfilled]: (state, action) => {
+      state.status = "fullfilled";
+      state.message = action.payload.message;
+      state.userName = action.payload.data.user.userName;
+      state.userImage = action.payload.data.user.userImage;
+      state.email = action.payload.data.user.email;
+
+      let userDetailsInlocal = JSON.parse(
+        localStorage.getItem("chatUserDetails")
+      );
+      userDetailsInlocal = {
+        ...userDetailsInlocal,
+        userName: action.payload.data.user.userName,
+        userImage: action.payload.data.user.userImage,
+        email: action.payload.data.user.email,
+      };
+
+      localStorage.setItem(
+        "chatUserDetails",
+        JSON.stringify(userDetailsInlocal)
+      );
+    },
+    [updateUserDetails.rejected]: (state, action) => {
       state.status = "rejected";
       state.message = action.payload.message;
     },

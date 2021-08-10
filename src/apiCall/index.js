@@ -1,4 +1,3 @@
-import React from "react";
 import axios from "axios";
 
 function apiErrorHandler(error) {
@@ -7,7 +6,6 @@ function apiErrorHandler(error) {
       return { success: false, message: error.response.data.message };
     }
   }
-
   return { success: false, message: "Sorry Couldn't full fill your Request" };
 }
 
