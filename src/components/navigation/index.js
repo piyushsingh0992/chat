@@ -9,7 +9,8 @@ import AddBoxIcon from "@material-ui/icons/AddBox";
 import SettingsIcon from "@material-ui/icons/Settings";
 import Typography from "@material-ui/core/Typography";
 import ExitToAppRoundedIcon from "@material-ui/icons/ExitToAppRounded";
-import  useLogout  from "../../customHooks/logout";
+import useLogout from "../../customHooks/logout";
+import { useNavigate } from "react-router";
 const useStyles = makeStyles((theme) => ({
   action: {
     marginTop: "1rem",
@@ -24,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function Navigation() {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const navigate = useNavigate();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -40,6 +42,16 @@ export default function Navigation() {
   function logoutHandler() {
     setAnchorEl(null);
     logout();
+  }
+
+  function settingHandler() {
+    setAnchorEl(null);
+   navigate("/setting")
+  }
+
+  function contactHandler() {
+    setAnchorEl(null);
+   navigate("/contacts")
   }
 
   return (
@@ -59,7 +71,7 @@ export default function Navigation() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={contactHandler}>
           <PermContactCalendarIcon className={classes.icon} />
           <Typography variant="p" className={classes.text}>
             All Contacts
@@ -71,7 +83,7 @@ export default function Navigation() {
             Create Group
           </Typography>
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={settingHandler}>
           <SettingsIcon className={classes.icon} />
           <Typography variant="p" className={classes.text}>
             Setting

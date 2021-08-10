@@ -37,10 +37,9 @@ function App() {
       <CallModal />
       <ToastContainer />
       <Routes>
-        <PrivateRoute path="/" element={<Contacts />} />
-        {/* <PrivateRoute path="/" element={<Home />} />
+        <PrivateRoute path="/" element={<Home />} />
         <PrivateRoute path="/chat/:chatId" element={<Chat />} />
-        <PrivateRoute path="/contacts" element={<Contacts />} /> */}
+        <PrivateRoute path="/contacts" element={<Contacts />} />
         <Route path="/login" element={<Login />} />
         <PrivateRoute path="/setting" element={<Setting />} />
         <PrivateRoute path="/videoCall/:videoCallId" element={<VideoCall />} />

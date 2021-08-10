@@ -36,6 +36,7 @@ const authSlice = new createSlice({
     userId: null,
     userName: null,
     userImage: null,
+    email: null,
   },
   reducers: {
     resetauthSlice: () => {
@@ -55,6 +56,7 @@ const authSlice = new createSlice({
       state.userId = action.payload.userId;
       state.userName = action.payload.userName;
       state.userImage = action.payload.userImage;
+      state.email = action.payload.email;
     },
   },
   extraReducers: {
@@ -80,6 +82,7 @@ const authSlice = new createSlice({
       state.userId = action.payload.data.user._id;
       state.userName = action.payload.data.user.userName;
       state.userImage = action.payload.data.user.userImage;
+      state.email = action.payload.data.user.email;
 
       localStorage.setItem(
         "chatUserDetails",
@@ -88,6 +91,7 @@ const authSlice = new createSlice({
           userId: action.payload.data.user._id,
           userName: action.payload.data.user.userName,
           userImage: action.payload.data.user.userImage,
+          email: action.payload.data.user.email,
         })
       );
     },

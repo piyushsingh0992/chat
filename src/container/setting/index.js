@@ -11,6 +11,8 @@ import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import ThemeToggle from "../../components/themeToggle";
+import { useSelector, useDispatch } from "react-redux";
+import Typography from "@material-ui/core/Typography";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -31,19 +33,29 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   avatar: {
-    // marginTop:"5rem",
-    background:theme.palette.primary.main,
+    background: theme.palette.primary.main,
     height: "20rem",
     width: "20rem",
   },
-  icon:{
-    background:"white"
-  }
+  icon: {
+    background: "white",
+    "&:hover": {
+      background: "white",
+    },
+  },
 }));
 export default function Setting() {
   const classes = useStyles();
 
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const auth = useSelector((state) => state.auth);
+  const [userDetails, userDetailsSetter] = useState({
+    email: auth.email,
+    userName: auth.userName,
+    userImage: auth.userImage,
+  });
+  debugger;
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -67,9 +79,19 @@ export default function Setting() {
           }
           overlap="circular"
         >
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            R
-          </Avatar>
+          {userDetails.userImage ? (
+            <Avatar
+              aria-label="recipe"
+              className={classes.avatar}
+              src={userDetails.userImage}
+            />
+          ) : (
+            <Avatar aria-label="recipe" className={classes.avatar}>
+              <Typography variant="h1">
+                {userDetails.userName.slice(0, 1)}
+              </Typography>
+            </Avatar>
+          )}
         </Badge>
 
         <form className={classes.form} noValidate>
@@ -77,19 +99,20 @@ export default function Setting() {
             variant="outlined"
             margin="normal"
             fullWidth
-            id="email"
+            id="userName"
             label="UserName"
-            name="email"
+            name="userName"
             autoFocus
+            value={userDetails.userName}
           />
           <TextField
             variant="outlined"
             margin="normal"
             fullWidth
-            name="password"
-            label="UserId"
-            type="password"
-            id="password"
+            name="email"
+            label="Email"
+            id="email"
+            value={userDetails.email}
           />
 
           <Button
