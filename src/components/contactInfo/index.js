@@ -5,13 +5,13 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import Avatar from "@material-ui/core/Avatar";
 import FolderIcon from "@material-ui/icons/Folder";
-import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import Tooltip from "@material-ui/core/Tooltip";
 import EditIcon from "@material-ui/icons/Edit";
 import EmailIcon from '@material-ui/icons/Email';
 import { useStyles } from "./style.js";
+import DeleteContact from "../deleteContact"
 
 
 
@@ -41,11 +41,7 @@ export default function ContactList({contactId,contactName}) {
             <EditIcon className={classes.icon} />
           </IconButton>
         </Tooltip>
-        <Tooltip title="Delete Contact" aria-label="add">
-          <IconButton edge="end" aria-label="delete">
-            <DeleteIcon className={classes.icon} />
-          </IconButton>
-        </Tooltip>
+        <DeleteContact contactId={contactId}/>
       </ListItemSecondaryAction>
     </ListItem>
   );

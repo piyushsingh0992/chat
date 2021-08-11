@@ -18,9 +18,21 @@ export const getAllContacts = createAsyncThunk(
 export const addNewContact = createAsyncThunk(
   "contact/addNewContact",
   async (contactDetails, { fulfillWithValue, rejectWithValue }) => {
-    
     let response = await apiCall("POST", "contact/add", contactDetails);
-    
+
+    if (response.success) {
+      return fulfillWithValue(response);
+    } else {
+      return rejectWithValue(response);
+    }
+  }
+);
+
+export const deleteContact = createAsyncThunk(
+  "contact/deleteContact",
+  async (contactDetails, { fulfillWithValue, rejectWithValue }) => {
+    let response = await apiCall("POST", "contact/delete", contactDetails);
+
     if (response.success) {
       return fulfillWithValue(response);
     } else {
@@ -55,7 +67,6 @@ const contactSlice = new createSlice({
       state.status = "fullfilled";
       state.message = action.payload.message;
       state.contacts = action.payload.data.contacts;
-      
     },
     [getAllContacts.rejected]: (state, action) => {
       state.status = "rejected";
@@ -63,25 +74,33 @@ const contactSlice = new createSlice({
     },
 
     [addNewContact.pending]: (state) => {
-      
       state.status = "loading";
     },
     [addNewContact.fulfilled]: (state, action) => {
-      
       state.status = "fullfilled";
       state.message = action.payload.message;
-      if(state.contacts){
-        state.contacts=[action.payload.data.newContact,...state.contacts]
-      }else{
-        state.contacts = [action.payload.data.newContact]
+      if (state.contacts) {
+        state.contacts = [action.payload.data.newContact, ...state.contacts];
+      } else {
+        state.contacts = [action.payload.data.newContact];
       }
-      console.log(current(state));
-
-      
-      
     },
     [addNewContact.rejected]: (state, action) => {
-      
+      state.status = "rejected";
+      state.message = action.payload.message;
+    },
+
+    [deleteContact.pending]: (state) => {
+      state.status = "loading";
+    },
+    [deleteContact.fulfilled]: (state, action) => {
+      state.status = "fullfilled";
+      state.message = action.payload.message;
+      state.contacts = state.contacts.filter(
+        (item) => item.contactId != action.payload.data.deletedContact.contactId
+      );
+    },
+    [deleteContact.rejected]: (state, action) => {
       state.status = "rejected";
       state.message = action.payload.message;
     },
