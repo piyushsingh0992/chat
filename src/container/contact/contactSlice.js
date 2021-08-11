@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { apiCall } from "../../apiCall";
+import { current } from "immer";
 
 export const getAllContacts = createAsyncThunk(
   "contact/getAllContacts",
@@ -54,7 +55,7 @@ const contactSlice = new createSlice({
       state.status = "fullfilled";
       state.message = action.payload.message;
       state.contacts = action.payload.data.contacts;
-      debugger;
+      
     },
     [getAllContacts.rejected]: (state, action) => {
       state.status = "rejected";
@@ -69,7 +70,14 @@ const contactSlice = new createSlice({
       
       state.status = "fullfilled";
       state.message = action.payload.message;
-      state.contacts = state.contacts.push(action.payload.data.newContact);
+      if(state.contacts){
+        state.contacts=[action.payload.data.newContact,...state.contacts]
+      }else{
+        state.contacts = [action.payload.data.newContact]
+      }
+      console.log(current(state));
+
+      
       
     },
     [addNewContact.rejected]: (state, action) => {

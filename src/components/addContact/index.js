@@ -67,6 +67,7 @@ export default function AddContact({ open, close }) {
       if (contact.status === "fullfilled") {
         loaderSetter(false);
         toast.success(contact.message);
+        close();
       } else if (contact.status === "rejected") {
         toast.error(contact.message);
         loaderSetter(false);

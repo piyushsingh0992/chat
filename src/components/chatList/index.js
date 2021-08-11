@@ -19,7 +19,7 @@ export default function ChatList() {
       chatArraySetter(chat.chats);
       loaderSetter(false);
     } else if (chat.status === "rejected" && chatArray === null) {
-      debugger;
+      
       toast.error(chat.message);
        
       
