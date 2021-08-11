@@ -12,14 +12,17 @@ export default function ChatList() {
   const chat = useSelector((state) => state.chat);
 
   const [loader, loaderSetter] = useState(true);
-  const [chatArray, chatArraySetter] = useState([]);
+  const [chatArray, chatArraySetter] = useState(null);
 
   useEffect(() => {
     if (chat.status === "fullfilled") {
       chatArraySetter(chat.chats);
       loaderSetter(false);
-    } else if (chat.status === "rejected") {
+    } else if (chat.status === "rejected" && chatArray === null) {
+      debugger;
       toast.error(chat.message);
+       
+      
       chatArraySetter([]);
       loaderSetter(false);
     }

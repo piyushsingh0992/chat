@@ -10,9 +10,12 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import Tooltip from "@material-ui/core/Tooltip";
 import EditIcon from "@material-ui/icons/Edit";
+import EmailIcon from '@material-ui/icons/Email';
 import { useStyles } from "./style.js";
 
-export default function InteractiveList() {
+
+
+export default function ContactList({contactId,contactName}) {
   const classes = useStyles();
 
   return (
@@ -23,18 +26,24 @@ export default function InteractiveList() {
         </Avatar>
       </ListItemAvatar>
       <ListItemText
-        primary={<Typography variant="h6">All Contacts</Typography>}
-        secondary={<Typography variant="p">All Contacts</Typography>}
+        primary={<Typography variant="h6">{contactName}</Typography>}
+        secondary={<Typography variant="p">{contactId}</Typography>}
       />
-      <ListItemSecondaryAction>
+      <ListItemSecondaryAction className={classes.actionBtns}>
+      <Tooltip title="Start a Conversation" aria-label="add">
+          <IconButton edge="end" aria-label="delete">
+            <EmailIcon className={classes.icon} />
+          </IconButton>
+        </Tooltip>
+
         <Tooltip title="Edit Contact" aria-label="add">
           <IconButton edge="end" aria-label="delete">
-            <EditIcon className={classes.delete} />
+            <EditIcon className={classes.icon} />
           </IconButton>
         </Tooltip>
         <Tooltip title="Delete Contact" aria-label="add">
           <IconButton edge="end" aria-label="delete">
-            <DeleteIcon className={classes.delete} />
+            <DeleteIcon className={classes.icon} />
           </IconButton>
         </Tooltip>
       </ListItemSecondaryAction>

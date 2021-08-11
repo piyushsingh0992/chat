@@ -15,10 +15,11 @@ export default function InteractiveList() {
 
   useEffect(() => {
     if (contact.status === "fullfilled") {
-      contactArraySetter(contact.chats);
+      contactArraySetter(contact.contacts);
       loaderSetter(false);
-    } else if (contact.status === "rejected") {
+    } else if (contact.status === "rejected" && contactArray === null) {
       toast.error(contact.message);
+
       contactArraySetter([]);
       loaderSetter(false);
     }
@@ -29,7 +30,7 @@ export default function InteractiveList() {
       {loader ? (
         <CircularProgress size={28} />
       ) : (
-        contactArray.map((item) => <ContactInfo />)
+        contactArray.map((item) => <ContactInfo contactId={item.contactId} contactName={item.contactName} />)
       )}
     </List>
   );

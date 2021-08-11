@@ -14,6 +14,20 @@ export const getAllContacts = createAsyncThunk(
   }
 );
 
+export const addNewContact = createAsyncThunk(
+  "contact/addNewContact",
+  async (contactDetails, { fulfillWithValue, rejectWithValue }) => {
+    
+    let response = await apiCall("POST", "contact/add", contactDetails);
+    
+    if (response.success) {
+      return fulfillWithValue(response);
+    } else {
+      return rejectWithValue(response);
+    }
+  }
+);
+
 const contactSlice = new createSlice({
   name: "contact",
   initialState: {
@@ -37,12 +51,29 @@ const contactSlice = new createSlice({
       state.status = "loading";
     },
     [getAllContacts.fulfilled]: (state, action) => {
+      state.status = "fullfilled";
+      state.message = action.payload.message;
+      state.contacts = action.payload.data.contacts;
+      debugger;
+    },
+    [getAllContacts.rejected]: (state, action) => {
+      state.status = "rejected";
+      state.message = action.payload.message;
+    },
+
+    [addNewContact.pending]: (state) => {
+      
+      state.status = "loading";
+    },
+    [addNewContact.fulfilled]: (state, action) => {
       
       state.status = "fullfilled";
       state.message = action.payload.message;
-      state.chats = action.payload.data.chats;
+      state.contacts = state.contacts.push(action.payload.data.newContact);
+      
     },
-    [getAllContacts.rejected]: (state, action) => {
+    [addNewContact.rejected]: (state, action) => {
+      
       state.status = "rejected";
       state.message = action.payload.message;
     },

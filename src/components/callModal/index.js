@@ -4,12 +4,8 @@ import Modal from "@material-ui/core/Modal";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import CallIcon from "@material-ui/icons/Call";
-
-import MusicNoteRoundedIcon from "@material-ui/icons/MusicNoteRounded";
-
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
-
 import Tooltip from "@material-ui/core/Tooltip";
 
 function getModalStyle() {

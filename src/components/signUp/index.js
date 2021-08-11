@@ -40,7 +40,7 @@ export default function SignUp({
         loaderSetter(false);
       } else if (auth.status === "rejected") {
         toast.error(auth.message);
-        
+       
         loaderSetter(false);
       }
     }
@@ -51,6 +51,7 @@ export default function SignUp({
     if (check(signUpDetails)) {
       
       toast.error("Please Fill in all the details");
+   
       loaderSetter(false);
       return;
     }

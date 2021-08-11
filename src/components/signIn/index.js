@@ -29,6 +29,7 @@ export default function SignIn({
         loaderSetter(false);
       } else if (auth.status === "rejected") {
         toast.error(auth.message);
+       
         loaderSetter(false);
       }
     }
@@ -38,6 +39,7 @@ export default function SignIn({
     loaderSetter(true);
     if (check(signInDetails)) {
       toast.error("Please Fill in all the details");
+      
       loaderSetter(false);
       return;
     }

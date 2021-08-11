@@ -12,7 +12,10 @@ export const useStyles = makeStyles((theme) => ({
     borderBottom: `1px solid ${theme.palette.primary.main}`,
     padding: theme.spacing(1, 2),
   },
-  delete: {
-    transform: "scale(1.2)",
+  actionBtns: {
+    minWidth: "10%",
+  },
+  icon: {
+    margin: theme.spacing(0, 1),
   },
 }));

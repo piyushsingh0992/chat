@@ -54,6 +54,7 @@ export default function Setting() {
         userImage: auth.userImage,
       });
       toast.error(auth.message);
+    
     }
   }, [auth]);
 
