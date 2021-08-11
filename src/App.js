@@ -16,10 +16,15 @@ import "react-toastify/dist/ReactToastify.css";
 import { signInfromLocalStorage } from "./container/login/authSlice";
 import { useSelector, useDispatch } from "react-redux";
 import useLoadingChatandContact from "./customHooks/loadingChatandContact";
+
+import socketClient from "socket.io-client";
+
 function App() {
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.auth.token);
+  const auth = useSelector((state) => state.auth);
   const loadChatandContact = useLoadingChatandContact();
+  const SERVER = "https://chat.piyushsingh6.repl.co/";
+  
 
   useEffect(() => {
     let userDetails = JSON.parse(localStorage.getItem("chatUserDetails"));
@@ -29,8 +34,18 @@ function App() {
   }, []);
 
   useEffect(() => {
-    loadChatandContact(token);
-  }, [token]);
+    loadChatandContact(auth.token);
+  }, [auth.token]);
+
+  useEffect(() => {
+    if (auth.status === "fullfilled") {
+      
+      var socket = socketClient(SERVER);
+      socket.on("connection", () => {
+        console.log(`I'm connected with the back-end`);
+      });
+    }
+  }, [auth]);
 
   return (
     <div className="APP">
