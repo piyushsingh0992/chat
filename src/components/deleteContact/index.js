@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteContact } from "../../container/contact/contactSlice";
 import CircularProgress from "@material-ui/core/CircularProgress";
-export default function DeleteContact({ contactId }) {
+export default function DeleteContact({ id }) {
   const classes = useStyles();
   const [loader, loaderSetter] = useState(false);
   const contact = useSelector((state) => state.contact);
@@ -32,7 +32,7 @@ export default function DeleteContact({ contactId }) {
         aria-label="delete"
         onClick={() => {
           loaderSetter(true);
-          dispatch(deleteContact({ contactId }));
+          dispatch(deleteContact({ id }));
         }}
       >
         {loader ? (

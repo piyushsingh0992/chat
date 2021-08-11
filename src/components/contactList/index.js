@@ -30,7 +30,7 @@ export default function InteractiveList() {
       {loader ? (
         <CircularProgress size={28} />
       ) : (
-        contactArray.map((item) => <ContactInfo contactId={item.contactId} contactName={item.contactName} />)
+        contactArray.map((item) => <ContactInfo contactId={item.contactId} contactName={item.contactName} id={item._id} />)
       )}
     </List>
   );
