@@ -6,10 +6,11 @@ export const useStyles = makeStyles((theme) => ({
     backgroundColor: "white",
     position: "relative",
     top: "3.5rem",
-    marginLeft: 0,
+
     display: "flex",
     alignItems: "center",
     zIndex:0,
+    margin:"1rem 1rem",
     [theme.breakpoints.down("xs")]: {
       top: "3rem",
     },
@@ -24,6 +25,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   searchIcon: {
     fontSize: "2rem",
+    margin:"0 1rem"
   },
   inputRoot: {
     color: "inherit",

@@ -67,7 +67,7 @@ const contactSlice = new createSlice({
       return {
         status: "idle",
         message: null,
-        contacts: null,
+        contacts: [],
         currentContact: null,
       };
     },
