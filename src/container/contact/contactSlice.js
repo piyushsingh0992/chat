@@ -59,7 +59,7 @@ const contactSlice = new createSlice({
   initialState: {
     status: "idle",
     message: null,
-    contacts: null,
+    contacts: [],
     currentcontact: null,
   },
   reducers: {
@@ -130,8 +130,6 @@ const contactSlice = new createSlice({
         }
         return item;
       });
-
-      debugger;
     },
     [updateContact.rejected]: (state, action) => {
       state.status = "rejected";

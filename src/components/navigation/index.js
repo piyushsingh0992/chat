@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import IconButton from "@material-ui/core/IconButton";
@@ -10,6 +10,7 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import Typography from "@material-ui/core/Typography";
 import ExitToAppRoundedIcon from "@material-ui/icons/ExitToAppRounded";
 import useLogout from "../../customHooks/logout";
+import CreateGroup from "../createGroup";
 import { useNavigate } from "react-router";
 const useStyles = makeStyles((theme) => ({
   action: {
@@ -24,8 +25,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 export default function Navigation() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
+  const [groupModal, groupModalSetter] = useState(false);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -46,16 +48,22 @@ export default function Navigation() {
 
   function settingHandler() {
     setAnchorEl(null);
-   navigate("/setting")
+    navigate("/setting");
   }
 
   function contactHandler() {
     setAnchorEl(null);
-   navigate("/contacts")
+    navigate("/contacts");
   }
 
   return (
     <div>
+      <CreateGroup
+        open={groupModal}
+        close={() => {
+          groupModalSetter(false);
+        }}
+      />
       <IconButton
         aria-controls="simple-menu"
         aria-haspopup="true"
@@ -77,7 +85,12 @@ export default function Navigation() {
             All Contacts
           </Typography>
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem
+          onClick={() => {
+            groupModalSetter(true);
+            handleClose();
+          }}
+        >
           <AddBoxIcon className={classes.icon} />
           <Typography variant="p" className={classes.text}>
             Create Group

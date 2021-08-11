@@ -6,9 +6,14 @@ import { useInputChange } from "../../customHooks/inputChange.js";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { useSelector, useDispatch } from "react-redux";
 import { updateUserDetails } from "../../container/login/authSlice";
-export default function EditUserDetails({ userDetails, userDetailsSetter }) {
+export default function EditUserDetails({
+  userDetails,
+  userDetailsSetter,
+  loader,
+  loaderSetter,
+}) {
   const changeHandler = useInputChange(userDetailsSetter);
-  const [loader, loaderSetter] = useState(false);
+
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
 

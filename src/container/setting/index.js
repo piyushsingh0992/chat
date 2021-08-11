@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import NavBar from "../../components/navBar";
 import SideNav from "../../components/sideNav";
-import ThemeToggle from "../../components/themeToggle";
+
 import { useSelector } from "react-redux";
 import EditAvatar from "../../components/editAvatar";
 import EditUserDetails from "../../components/editUserDetails";
@@ -39,22 +39,25 @@ export default function Setting() {
     userImage: auth.userImage,
   });
 
+
+  const [loader, loaderSetter] = useState(false);
   useEffect(() => {
-    if (auth.status === "fullfilled") {
-      userDetailsSetter({
-        email: auth.email,
-        userName: auth.userName,
-        userImage: auth.userImage,
-      });
-      toast.success(auth.message);
-    } else if (auth.status === "rejected") {
-      userDetailsSetter({
-        email: auth.email,
-        userName: auth.userName,
-        userImage: auth.userImage,
-      });
-      toast.error(auth.message);
-    
+    if (loader) {
+      if (auth.status === "fullfilled") {
+        userDetailsSetter({
+          email: auth.email,
+          userName: auth.userName,
+          userImage: auth.userImage,
+        });
+        toast.success(auth.message);
+      } else if (auth.status === "rejected") {
+        userDetailsSetter({
+          email: auth.email,
+          userName: auth.userName,
+          userImage: auth.userImage,
+        });
+        toast.error(auth.message);
+      }
     }
   }, [auth]);
 
@@ -69,7 +72,6 @@ export default function Setting() {
         mobileOpen={mobileOpen}
       />
       <main className={classes.content}>
-        <ThemeToggle />
         <EditAvatar
           userDetails={userDetails}
           userDetailsSetter={userDetailsSetter}
@@ -77,6 +79,7 @@ export default function Setting() {
         <EditUserDetails
           userDetails={userDetails}
           userDetailsSetter={userDetailsSetter}
+          loader={loader} loaderSetter={loaderSetter}
         />
       </main>
     </div>

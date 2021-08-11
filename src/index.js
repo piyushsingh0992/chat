@@ -8,7 +8,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { store } from "./app/store";
 import { Provider } from "react-redux";
 
-const theme = createTheme({
+const lightTheme = createTheme({
   palette: {
     primary: {
       main: "rgb(7, 94, 84)",
@@ -40,10 +40,12 @@ const theme = createTheme({
   },
 });
 
+
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={lightTheme}>
         <CssBaseline />
         <Router>
           <App />
